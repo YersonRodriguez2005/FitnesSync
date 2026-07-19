@@ -1,3 +1,4 @@
+import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
@@ -22,17 +23,21 @@ import "@ionic/react/css/text-transformation.css";
 import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
 
-/* Tema Oscuro y Variables */
+/* Tema Oscuro y Variables de FitnesSync */
 import "@ionic/react/css/palettes/dark.system.css";
 import "./theme/variables.css";
 
-setupIonicReact();
+setupIonicReact({
+  // Forzar animaciones de transición fluidas estilo iOS en todos los dispositivos
+  mode: "ios", 
+});
 
 const App: React.FC = () => (
   <AuthProvider>
-    <IonApp>
+    {/* La clase base asegura que el fondo oscuro principal cubra toda la app */}
+    <IonApp className="bg-[#121212]">
       <IonReactRouter>
-        <IonRouterOutlet>
+        <IonRouterOutlet animated={true}>
           
           {/* ==== RUTAS PÚBLICAS (Sin restricción) ==== */}
           <Route exact path="/login">
@@ -48,13 +53,10 @@ const App: React.FC = () => (
           </Route>
 
           {/* ==== RUTAS PRIVADAS (Protegidas por token) ==== */}
-          {/* Usamos la propiedad "component={...}" según configuramos en ProtectedRoute */}
-          
           <ProtectedRoute exact path="/onboarding" component={Onboarding} />
 
-          {/* Al proteger "/app", automáticamente protegemos todas las sub-rutas que viven dentro de MainTabs (Dashboard, Train, Profile, etc.) */}
+          {/* Al proteger "/app", automáticamente protegemos todas las sub-rutas que viven dentro de MainTabs */}
           <ProtectedRoute path="/app" component={MainTabs} />
-
         </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>

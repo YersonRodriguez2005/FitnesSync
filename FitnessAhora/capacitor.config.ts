@@ -1,9 +1,9 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.fitnessahora.app',
-  appName: 'FitnessAhora',
-  webDir: 'dist'
+  "appId": "com.fitnessync.app",
+  "appName": "FitnesSync",
+  "webDir": "dist"
 };
 
 export default config;

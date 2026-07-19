@@ -1,28 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="es" class="dark">
   <head>
     <meta charset="utf-8" />
-    <title>FitnessAhora</title>
-    
+    <title>FitnesSync | Tu entrenamiento, tu progreso</title>
+
     <base href="/" />
-    
-    <meta name="color-scheme" content="light dark" />
+
+    <!-- ── Forzar Modo Oscuro y Color Base ── -->
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#121212" />
+
     <meta
       name="viewport"
       content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
     <meta name="format-detection" content="telephone=no" />
     <meta name="msapplication-tap-highlight" content="no" />
-    
+
     <link rel="manifest" href="/manifest.json" />
-    
-    <link rel="shortcut icon" type="image/png" href="./public/assets/logo.png" />
-    
+
+    <!-- Corrección de ruta del favicon para Vite/Ionic -->
+    <link rel="shortcut icon" type="image/png" href="/assets/logo.png" />
+
+    <!-- ── Soporte Web App (PWA) para iOS ── -->
     <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-title" content="Ionic App" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="FitnesSync" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+
+    <!-- ── Carga Optimizada de Fuentes ── -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;800;900&display=swap"
+      rel="stylesheet"
+    />
   </head>
-  <body>
+  <body
+    class="bg-[#121212] text-slate-100 antialiased selection:bg-[#00E676]/30 selection:text-[#00E676]"
+  >
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

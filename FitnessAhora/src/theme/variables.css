@@ -1,13 +1,144 @@
-:root {
-  /* Forzar fondo oscuro */
-  --ion-background-color: #121212;
-  --ion-text-color: #ffffff;
+@import "tailwindcss";
 
-  /* Tu Verde Neón (Primary) */
+:root {
+  /* Fondo principal oscuro que ahorra batería en pantallas OLED[cite: 2] */
+  --ion-background-color: #121212 !important;
+  --ion-text-color: #ffffff !important;
+
+  /* Verde Neón (Primary) - Transmite vitalidad[cite: 2] */
   --ion-color-primary: #00E676;
-  --ion-color-primary-rgb: 0,230,118;
+  --ion-color-primary-rgb: 0, 230, 118;
   --ion-color-primary-contrast: #000000;
-  --ion-color-primary-contrast-rgb: 0,0,0;
+  --ion-color-primary-contrast-rgb: 0, 0, 0;
   --ion-color-primary-shade: #00ca68;
   --ion-color-primary-tint: #1ae984;
+
+  /* ==========================================================================
+     2. VARIABLES FITNESSYNC: GLASSMORPHISM & SOFT UI
+     ========================================================================== */
+  /* Colores de superficies para contraste de elevación[cite: 2] */
+  --fs-surface: #1E1E1E;
+  --fs-glass-bg: rgba(30, 30, 30, 0.65);
+  --fs-glass-border: rgba(0, 230, 118, 0.15);
+  
+  /* Sombras Soft UI (Neumorfismo) */
+  --fs-soft-shadow: 6px 6px 12px rgba(0, 0, 0, 0.6), -4px -4px 10px rgba(255, 255, 255, 0.03);
+  --fs-soft-inset: inset 4px 4px 8px rgba(0, 0, 0, 0.6), inset -3px -3px 6px rgba(255, 255, 255, 0.03);
+  
+  /* Indicador del sistema a modo oscuro */
+  color-scheme: dark;
+}
+
+/* Forzar transparencia para permitir fondos dinámicos en las pantallas */
+ion-content {
+  --background: transparent !important;
+}
+ion-page {
+  background: #121212 !important;
+}
+
+/* ==========================================================================
+   3. CLASES UTILITARIAS DE DISEÑO
+   ========================================================================== */
+
+/* ── Tarjeta de Cristal (Glassmorphism) ── */
+.fs-glass-card {
+  background: var(--fs-glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--fs-glass-border);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+/* ── Botón Neumórfico (Soft UI) ── */
+.fs-soft-btn {
+  background: #121212;
+  border-radius: 20px;
+  box-shadow: var(--fs-soft-shadow);
+  color: var(--ion-color-primary);
+  border: 1px solid rgba(255, 255, 255, 0.02);
+  transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+  font-weight: bold;
+}
+.fs-soft-btn:active {
+  box-shadow: var(--fs-soft-inset);
+  transform: scale(0.96);
+}
+
+/* ── Input Neumórfico (Hundido) ── */
+.fs-soft-input-container {
+  background: #121212;
+  border-radius: 16px;
+  box-shadow: var(--fs-soft-inset);
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+}
+.fs-soft-input-container:focus-within {
+  border-color: var(--ion-color-primary-shade);
+  box-shadow: 0 0 12px rgba(0, 230, 118, 0.2), var(--fs-soft-inset);
+}
+
+/* ==========================================================================
+   4. ANIMACIONES GPU (Rendimiento Móvil)
+   ========================================================================== */
+@keyframes fs-slide-up {
+  0% { opacity: 0; transform: translate3d(0, 20px, 0); }
+  100% { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+.animate-slide-up {
+  animation: fs-slide-up 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+/* src/theme/variables.css */
+
+/* ==========================================================================
+   CONFIGURACIÓN DE TIPOGRAFÍAS MINIMALISTAS
+   ========================================================================== */
+
+/* Fuente para títulos y números (Outfit: Curvas suaves y orgánicas) */
+.fs-font-display { 
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+}
+
+/* Fuente para lectura e inputs (Inter: Alta legibilidad y minimalista) */
+.fs-font-body { 
+  font-family: 'Inter', system-ui, -apple-system, sans-serif; 
+}
+
+/* Forzar fuentes base del sistema Ionic */
+body {
+  font-family: 'Inter', system-ui, sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Outfit', sans-serif !important;
+  letter-spacing: -0.02em !important;
+}
+
+/* ==========================================================================
+   AJUSTES SOFT UI OPTIMIZADOS PARA TIPOGRAFÍA SUAVE
+   ========================================================================== */
+
+/* Suavizamos los textos dentro de las tarjetas de cristal */
+.fs-glass-card {
+  background: var(--fs-glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* Los inputs hundidos ahora reducen el espaciado entre letras para verse compactos */
+.fs-soft-input-container input {
+  font-family: 'Inter', sans-serif;
+  letter-spacing: -0.01em;
 }
