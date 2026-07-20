@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="./FitnessAhora/public/assets/logo.png" alt="FitnessAhora Logo" width="100" style="border-radius: 20px"/>
+<img src="./frontend/public/assets/logo.png" alt="FitnesSync Logo" width="100" style="border-radius: 20px"/>
 
-# FitnessAhora 💪
+# FitnesSync 💪
 
 **App móvil de entrenamiento personalizado según tu somatotipo y objetivo físico.**
 
@@ -13,7 +13,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
 [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
 
-[Descargar App](FitnessAhora.apk)
+[Descargar App](FitnesSync.apk)
 
 </div>
 
@@ -21,7 +21,7 @@
 
 ## 🎯 Acerca del Proyecto
 
-**FitnessAhora** es una aplicación móvil de entrenamiento que genera rutinas y planes nutricionales personalizados según el **somatotipo** (ectomorfo, mesomorfo, endomorfo) y el **objetivo físico** del usuario (ganar masa muscular o perder grasa).
+**FitnesSync** es una aplicación móvil de entrenamiento que genera rutinas y planes nutricionales personalizados según el **somatotipo** (ectomorfo, mesomorfo, endomorfo) y el **objetivo físico** del usuario (ganar masa muscular o perder grasa).
 
 El usuario se registra, completa un onboarding de 2 pasos, y recibe de forma inmediata:
 - Un **plan de entrenamiento semanal** adaptado a su equipamiento (pesas, bandas o peso corporal)
@@ -51,9 +51,10 @@ El usuario se registra, completa un onboarding de 2 pasos, y recibe de forma inm
 | React | 18 | UI framework |
 | Ionic Framework | 7 | Componentes móviles |
 | TypeScript | 5 | Tipado estático |
-| Tailwind CSS | 3 | Utilidades de estilos |
-| CSS Modules | — | Estilos por componente |
+| Tailwind CSS | 4 | Utilidades de estilos |
+| CSS Variables | — | Estilos por componente y theming |
 | React Router | 6 | Navegación |
+| Lucide React | — | Iconografía minimalista |
 
 ### Backend
 | Tecnología | Versión | Uso |
@@ -82,7 +83,7 @@ El usuario se registra, completa un onboarding de 2 pasos, y recibe de forma inm
 ## 🏗 Arquitectura
 
 ```
-FitnessAhora
+FitnesSync
 ├── Frontend (Ionic + React)   → Puerto 5173 (dev) / Build estático
 │     └── Consume REST API
 │
@@ -118,8 +119,8 @@ npm install -g @ionic/cli
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/tu-usuario/fitnessahora.git
-cd fitnessahora
+git clone https://github.com/tu-usuario/fitnessync.git
+cd fitnessync
 ```
 
 ---
@@ -129,19 +130,19 @@ cd fitnessahora
 Conéctate a PostgreSQL y crea la base de datos:
 
 ```sql
-CREATE DATABASE fitnessahora_db;
+CREATE DATABASE fitnessync_db;
 ```
 
 Ejecuta el esquema inicial:
 
 ```bash
-psql -U postgres -d fitnessahora_db -f backend/database/schema.sql
+psql -U postgres -d fitnessync_db -f backend/database/schema.sql
 ```
 
 *(Opcional) Carga datos de ejemplo:*
 
 ```bash
-psql -U postgres -d fitnessahora_db -f backend/database/seed.sql
+psql -U postgres -d fitnessync_db -f backend/database/seed.sql
 ```
 
 ---
@@ -197,10 +198,14 @@ ionic serve
 # Build de producción
 ionic build
 
-# Ejecutar en dispositivo Android
+# Sincronizar plataformas nativas (Capacitor)
+npx cap sync android
+npx cap sync ios
+
+# Ejecutar en dispositivo Android (Requiere Android Studio)
 ionic cap run android
 
-# Ejecutar en dispositivo iOS
+# Ejecutar en dispositivo iOS (Requiere Xcode)
 ionic cap run ios
 ```
 
@@ -220,7 +225,7 @@ NODE_ENV=development
 # Base de datos
 DB_HOST=localhost
 DB_PORT=5432
-DB_NAME=fitnessahora_db
+DB_NAME=fitnessync_db
 DB_USER=postgres
 DB_PASSWORD=tu_password
 
@@ -457,9 +462,9 @@ Retorna estadísticas del usuario.
 ## 📁 Estructura del Proyecto
 
 ```
-fitnessahora/
+fitnessync/
 │
-├── frontend/                    # App Ionic + React
+├── frontend/                    # App Ionic + React + Tailwind + Vite
 │   ├── public/
 │   │   └── assets/
 │   │       ├── logo.png
@@ -469,18 +474,20 @@ fitnessahora/
 │   │   ├── context/
 │   │   │   └── AuthContext.tsx  # Estado global de autenticación
 │   │   ├── pages/
-│   │   │   ├── Login.tsx / .css
-│   │   │   ├── Register.tsx / .css
-│   │   │   ├── Onboarding.tsx / .css
-│   │   │   ├── Dashboard.tsx / .css
-│   │   │   ├── Train.tsx / .css
-│   │   │   ├── RutinaSemanal.tsx / .css
-│   │   │   ├── Nutrition.tsx / .css
-│   │   │   └── Profile.tsx / .css
+│   │   │   ├── Login.tsx
+│   │   │   ├── Register.tsx
+│   │   │   ├── Onboarding.tsx
+│   │   │   ├── Dashboard.tsx
+│   │   │   ├── Train.tsx
+│   │   │   ├── RutinaSemanal.tsx
+│   │   │   ├── Nutrition.tsx
+│   │   │   ├── Configuration.tsx
+│   │   │   └── Profile.tsx
 │   │   ├── services/
 │   │   │   └── api.ts           # Instancia de Axios
 │   │   └── utils/
 │   │       └── validations.ts   # Validaciones de formularios
+│   ├── capacitor.config.json    # Configuración nativa
 │   ├── ionic.config.json
 │   └── package.json
 │
