@@ -1,4 +1,4 @@
-package com.fitnessahora.app;
+package com.fitnessync.app;
 
 import com.getcapacitor.BridgeActivity;
 

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { SplashScreen } from '@capacitor/splash-screen';
 import { Route, Redirect } from "react-router-dom";
 import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
@@ -32,35 +33,45 @@ setupIonicReact({
   mode: "ios", 
 });
 
-const App: React.FC = () => (
-  <AuthProvider>
-    {/* La clase base asegura que el fondo oscuro principal cubra toda la app */}
-    <IonApp className="bg-[#121212]">
-      <IonReactRouter>
-        <IonRouterOutlet animated={true}>
-          
-          {/* ==== RUTAS PÚBLICAS (Sin restricción) ==== */}
-          <Route exact path="/login">
-            <Login />
-          </Route>
+const App: React.FC = () => {
+  // CORRECCIÓN CLAVE: El useEffect ahora vive dentro del componente funcional
+  useEffect(() => {
+    // Oculta el splash screen de Capacitor cuando la app de React ya esté lista
+    SplashScreen.hide().catch((err) => {
+      console.warn("Capacitor SplashScreen no está disponible en la web:", err);
+    });
+  }, []);
 
-          <Route exact path="/register">
-            <Register />
-          </Route>
+  return (
+    <AuthProvider>
+      {/* La clase base asegura que el fondo oscuro principal cubra toda la app */}
+      <IonApp className="bg-[#121212]">
+        <IonReactRouter>
+          <IonRouterOutlet animated={true}>
+            
+            {/* ==== RUTAS PÚBLICAS (Sin restricción) ==== */}
+            <Route exact path="/login">
+              <Login />
+            </Route>
 
-          <Route exact path="/">
-            <Redirect to="/login" />
-          </Route>
+            <Route exact path="/register">
+              <Register />
+            </Route>
 
-          {/* ==== RUTAS PRIVADAS (Protegidas por token) ==== */}
-          <ProtectedRoute exact path="/onboarding" component={Onboarding} />
+            <Route exact path="/">
+              <Redirect to="/login" />
+            </Route>
 
-          {/* Al proteger "/app", automáticamente protegemos todas las sub-rutas que viven dentro de MainTabs */}
-          <ProtectedRoute path="/app" component={MainTabs} />
-        </IonRouterOutlet>
-      </IonReactRouter>
-    </IonApp>
-  </AuthProvider>
-);
+            {/* ==== RUTAS PRIVADAS (Protegidas por token) ==== */}
+            <ProtectedRoute exact path="/onboarding" component={Onboarding} />
+
+            {/* Al proteger "/app", automáticamente protegemos todas las sub-rutas que viven dentro de MainTabs */}
+            <ProtectedRoute path="/app" component={MainTabs} />
+          </IonRouterOutlet>
+        </IonReactRouter>
+      </IonApp>
+    </AuthProvider>
+  );
+};
 
 export default App;
